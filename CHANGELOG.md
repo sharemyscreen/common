@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.2.0
+
+* Update client model
+
+*guedj_m, Tue Jun 21 2016 19:11:45 GMT+0200 (CEST)*
+
+---
 ## 0.1.1
 
 * New test

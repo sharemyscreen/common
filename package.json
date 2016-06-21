@@ -1,7 +1,7 @@
 {
   "name": "sharemyscreen-common",
   "private": true,
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Common objects library for ShareMyScreen services",
   "main": "index.js",
   "scripts": {
@@ -40,7 +40,10 @@
   },
   "xo": {
     "esnext": true,
-		"env": ["node", "mocha"]
+    "env": [
+      "node",
+      "mocha"
+    ]
   },
   "files": [
     "index.js",
