@@ -16,5 +16,14 @@
 	"facebookId": "9876543210",
 	"firstName": "Maxime",
 	"lastName": "Guedj"
+  },
+  "org": {
+    "name": "toto",
+    "user": {
+      "email": "test@orgg.com",
+      "password": "Hello",
+      "firstName": "Maxime",
+      "lastName": "Guedj"
+    }
   }
 }

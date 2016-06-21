@@ -5,6 +5,12 @@
 	"firstName": "Maxime",
 	"lastName": "Guedj"
   },
+  "user2": {
+    "email": "test2@organization.com",
+    "password": "Hello",
+    "firstName": "Maxime",
+    "lastName": "Guedj"
+  },
   "organization": {
 	"name": "Test org"
   }

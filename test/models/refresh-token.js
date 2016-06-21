@@ -4,10 +4,11 @@ const refreshTokenFixture = require('../fixtures/models/refresh-token.json');
 
 var user;
 var client;
+var token;
 
 describe('Testing refresh_token model', function () {
   before(function (done) {
-    smsCommon.userModel.createNewPassword(refreshTokenFixture.user.email,
+    smsCommon.userModel.createPassword(refreshTokenFixture.user.email,
       refreshTokenFixture.user.password,
       refreshTokenFixture.user.firstName,
       refreshTokenFixture.user.lastName,
@@ -29,7 +30,7 @@ describe('Testing refresh_token model', function () {
       });
   });
 
-  it('Should generated a refresh token', function (done) {
+  it('createNew()', function (done) {
     smsCommon.refreshTokenModel.createNew(client,
       user,
       refreshTokenFixture.token.scopes,
@@ -40,8 +41,31 @@ describe('Testing refresh_token model', function () {
           expect(cToken.token.length).to.equal(256);
           expect(cToken.user._id).to.equal(user._id);
           expect(cToken.client._id).to.equal(client._id);
+          token = cToken;
           done();
         }
       });
+  });
+
+  it('getToken()', function (done) {
+    smsCommon.refreshTokenModel.getToken(token.token, function (err, fToken) {
+      if (err) {
+        done(err);
+      } else {
+        expect(fToken).to.not.be.null;
+        expect(fToken._id.toString()).to.equal(token._id.toString());
+        done();
+      }
+    });
+  });
+
+  it('get duration', function (done) {
+    expect(token.duration).to.equal(24 * 3600);
+    done();
+  });
+
+  it('get lenght', function (done) {
+    expect(token.length).to.equal(256);
+    done();
   });
 });

@@ -2,9 +2,37 @@ const smsCommon = require('../../');
 const expect = require('chai').expect;
 const userFixture = require('../fixtures/models/user.json');
 
+var tUser;
+var pUser;
+var faUser;
+var gUser;
+var org;
+
 describe('Testing User model', function () {
-  it('Should create an user using password', function (done) {
-    smsCommon.userModel.createNewPassword(userFixture.password.email,
+  before(function (done) {
+    smsCommon.userModel.createPassword(userFixture.org.user.email,
+    userFixture.org.user.password,
+    userFixture.org.user.firstName,
+    userFixture.org.user.lastName,
+    function (err, cUser) {
+      if (err) {
+        done(err);
+      } else {
+        tUser = cUser;
+        smsCommon.organizationModel.createNew(userFixture.org.name, tUser, function (err, cOrg) {
+          if (err) {
+            done(err);
+          } else {
+            org = cOrg;
+            done();
+          }
+        });
+      }
+    });
+  });
+
+  it('createPassword()', function (done) {
+    smsCommon.userModel.createPassword(userFixture.password.email,
       userFixture.password.password,
       userFixture.password.firstName,
       userFixture.password.lastName,
@@ -19,8 +47,122 @@ describe('Testing User model', function () {
           expect(cUser.firstName).to.equal(userFixture.password.firstName);
           expect(cUser.lastName).to.equal(userFixture.password.lastName);
           expect(cUser.organizations.length).to.equal(0);
+          pUser = cUser;
           done();
         }
       });
+  });
+
+  it('createFacebook()', function (done) {
+    smsCommon.userModel.createFacebook(userFixture.facebook.email,
+      userFixture.facebook.facebookId,
+      userFixture.facebook.firstName,
+      userFixture.facebook.lastName,
+      function (err, cUser) {
+        if (err) {
+          done(err);
+        } else {
+          expect(cUser).to.not.be.null;
+          expect(cUser.publidId).to.not.be.null;
+          expect(cUser.organizations).to.have.lengthOf(0);
+          faUser = cUser;
+          done();
+        }
+      });
+  });
+
+  it('createGoogle()', function (done) {
+    smsCommon.userModel.createGoogle(userFixture.google.email,
+      userFixture.google.googleId,
+      userFixture.google.firstName,
+      userFixture.google.lastName,
+      function (err, cUser) {
+        if (err) {
+          done(err);
+        } else {
+          expect(cUser).to.not.be.null;
+          expect(cUser.publidId).to.not.be.null;
+          expect(cUser.organizations).to.have.lengthOf(0);
+          gUser = cUser;
+          done();
+        }
+      });
+  });
+
+  it('getByPublicId()', function (done) {
+    smsCommon.userModel.getByPublicId(pUser.publicId, function (err, fUser) {
+      if (err) {
+        done(err);
+      } else {
+        expect(fUser).to.not.be.null;
+        expect(fUser._id.toString()).to.equal(pUser._id.toString());
+        done();
+      }
+    });
+  });
+
+  it('getByCredential()', function (done) {
+    smsCommon.userModel.getByCredential(pUser.email,
+      userFixture.password.password,
+      function (err, fUser) {
+        if (err) {
+          done(err);
+        } else {
+          expect(fUser).to.not.be.null;
+          expect(fUser._id.toString()).to.equal(pUser._id.toString());
+          done();
+        }
+      });
+  });
+
+  it('getByFacebookId()', function (done) {
+    smsCommon.userModel.getByFacebookId(faUser.facebookId, function (err, fUser) {
+      if (err) {
+        done(err);
+      } else {
+        expect(fUser).to.not.be.null;
+        expect(fUser._id.toString()).to.equal(faUser._id.toString());
+        done();
+      }
+    });
+  });
+
+  it('getByGoogleId()', function (done) {
+    smsCommon.userModel.getByGoogleId(gUser.googleId, function (err, fUser) {
+      if (err) {
+        done(err);
+      } else {
+        expect(fUser).to.not.be.null;
+        expect(fUser._id.toString()).to.equal(gUser._id.toString());
+        done();
+      }
+    });
+  });
+
+  it('integrateOrganization()', function (done) {
+    pUser.integrateOrganization(org, function (err) {
+      if (err) {
+        done(err);
+      } else {
+        expect(pUser.organizations).to.have.lengthOf(1);
+        done();
+      }
+    });
+  });
+
+  it('leaveOrganization()', function (done) {
+    pUser.leaveOrganization(org, function (err) {
+      if (err) {
+        done(err);
+      } else {
+        expect(pUser.organizations).to.have.lengthOf(0);
+        done();
+      }
+    });
+  });
+
+  it('get fullname', function (done) {
+    expect(pUser.fullName).to.equal(pUser.firstName + ' ' + pUser.lastName);
+    done();
   });
 });
