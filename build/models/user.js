@@ -64,4 +64,14 @@ userSchema.pre('validate', function (next) {
 	next();
 });
 
+userSchema.methods.integrateOrganization = function (organization) {
+	this.organizations.push(organization);
+	return this.save();
+};
+
+userSchema.methods.leaveOrganization = function (organization) {
+	this.organizations.splice(this.organizations.indexOf(organization), 1);
+	return this.save();
+};
+
 exports.default = _mongoose2.default.model('User', userSchema);

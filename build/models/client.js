@@ -34,14 +34,14 @@ const clientSchema = new Schema({
 	}
 }, { timestamps: true });
 
-clientSchema.pre('validate', function (next) {
-	const client = this;
+clientSchema.statics.createNew = function (name, cb) {
+	clientModel.create({
+		name: name,
+		key: (0, _utils.uidGen)(16),
+		secret: (0, _utils.uidGen)(32)
+	}, cb);
+};
 
-	if (client.isNew) {
-		client.key = (0, _utils.uidGen)(16);
-		client.secret = (0, _utils.uidGen)(32);
-	}
-	next();
-});
+const clientModel = _mongoose2.default.model('Client', clientSchema);
 
-exports.default = _mongoose2.default.model('Client', clientSchema);
+exports.default = clientModel;

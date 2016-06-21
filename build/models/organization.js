@@ -52,4 +52,14 @@ organizationSchema.pre('validate', function (next) {
 	next();
 });
 
+organizationSchema.methods.invite = function (user) {
+	this.members.push(user);
+	return this.save();
+};
+
+organizationSchema.methods.kick = function (user) {
+	this.members.splice(this.members.indexOf(user), 1);
+	return this.save();
+};
+
 exports.default = _mongoose2.default.model('Organization', organizationSchema);

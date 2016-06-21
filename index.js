@@ -6,7 +6,6 @@ const lib = {
 	Utils: require('./build/utils'),
 	AccessToken: require('./build/models/access-token'),
 	Client: require('./build/models/client'),
-	Group: require('./build/models/group'),
 	Message: require('./build/models/message'),
 	Organization: require('./build/models/organization'),
 	RefreshToken: require('./build/models/refresh-token'),
