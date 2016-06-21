@@ -1,42 +1,39 @@
 const smsCommon = require('../../');
-const should = require('should');
-const organizationFixture = require("../fixtures/models/organization.json");
+const expect = require('chai').expect;
+const organizationFixture = require('../fixtures/models/organization.json');
 
-let user;
+var user;
 
-describe("Testing Organization model", function () {
+describe('Testing Organization model', function () {
+  before(function (done) {
+    smsCommon.userModel.createNewPassword(organizationFixture.user.email,
+      organizationFixture.user.password,
+      organizationFixture.user.firstName,
+      organizationFixture.user.lastName,
+      function (err, cUser) {
+        if (err) {
+          done(err);
+        }	else {
+          user = cUser;
+          done();
+        }
+      });
+  });
 
-	before(function (done) {
-		user = new smsCommon.User(organizationFixture.user);
-
-		user.save(function (err) {
-			done(err);
-		});
-	});
-
-	it("Should create an organization", function (done) {
-
-		const org = new smsCommon.Organization({
-			name: organizationFixture.organization.name,
-			creator: user
-		});
-
-		org.save(function (err) {
-			if (err) {
-				done(err);
-			}
-			else {
-				org.publicId.length.should.equal(25);
-
-				org.name.should.equal(organizationFixture.organization.name);
-
-				org.creator._id.should.equal(user._id);
-
-				org.owner._id.should.equal(user._id);
-
-				org.members.should.containEql(user._id);
-				done();
-			}
-		});
-	})
+  it('Should create an organization', function (done) {
+    smsCommon.organizationModel.createNew(organizationFixture.organization.name,
+      user,
+      function (err, cOrg) {
+        if (err) {
+          done(err);
+        }	else {
+          expect(cOrg.publicId.length).to.equal(25);
+          expect(cOrg.name).to.equal(organizationFixture.organization.name);
+          expect(cOrg.creator._id).to.equal(user._id);
+          expect(cOrg.owner._id).to.equal(user._id);
+          expect(cOrg.members.length).to.equal(1);
+          done();
+        }
+      });
+  });
 });
