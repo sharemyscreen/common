@@ -5,7 +5,7 @@
   "description": "Common objects library for ShareMyScreen services",
   "main": "index.js",
   "scripts": {
-    "preversion": "gulp lint && gulp clean && gulp build && npm test",
+    "preversion": "gulp lint && npm test",
     "version": "gulp changelog && git add CHANGELOG.md",
     "postversion": "gulp version",
     "test": "istanbul cover _mocha -- test/test.js -R spec"
