@@ -7,9 +7,7 @@ describe("Testing Client model", function () {
 
 	it("Should create a client", function (done) {
 
-		const cClient = new smsCommon.Client(clientFixture);
-
-		cClient.save(function (err) {
+		smsCommon.Client.createNew(clientFixture.name, function (err, cClient) {
 			if (err) {
 				done(err);
 			}
