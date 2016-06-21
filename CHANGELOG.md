@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.3.0
+
+* Implementation of new model functions
+* Fully tested module
+
+*guedj_m, Wed Jun 22 2016 01:55:27 GMT+0200 (CEST)*
+
+---
 ## 0.2.0
 
 * Update client model
