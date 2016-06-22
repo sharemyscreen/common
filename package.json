@@ -6,7 +6,7 @@
   "scripts": {
     "preversion": "gulp lint && npm test",
     "version": "gulp changelog && git add CHANGELOG.md",
-    "postversion": "gulp version",
+    "postversion": "gulp version && git push origin master --tags",
     "test": "istanbul cover _mocha -- test/test.js -R spec"
   },
   "repository": {

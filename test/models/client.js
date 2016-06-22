@@ -73,7 +73,7 @@ describe('Testing Client model', function () {
     expect(result).to.not.be.null;
     expect(result).to.be.an('object');
     expect(result._id).to.be.undefined;
-    expect(result._v).to.be.undefined;
-    expect(result.updatedAd).to.be.undefined;
+    expect(result.__v).to.be.undefined;
+    expect(result.updatedAt).to.be.undefined;
   });
 });
