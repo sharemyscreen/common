@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.4.0
+
+* Add safePrint() function to client document to convert it as a js object and unset secret properties
+
+*guedj_m, Wed Jun 22 2016 18:50:32 GMT+0200 (CEST)*
+
+---
 ## 0.3.0
 
 * Implementation of new model functions
