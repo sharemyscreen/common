@@ -66,4 +66,14 @@ describe('Testing Client model', function () {
       }
     });
   });
+
+  it('safePrint()', function () {
+    const result = client.safePrint();
+
+    expect(result).to.not.be.null;
+    expect(result).to.be.an('object');
+    expect(result._id).to.be.undefined;
+    expect(result._v).to.be.undefined;
+    expect(result.updatedAd).to.be.undefined;
+  });
 });
