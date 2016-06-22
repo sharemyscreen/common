@@ -1,6 +1,5 @@
 {
   "name": "sharemyscreen-common",
-  "private": true,
   "version": "0.3.0",
   "description": "Common objects library for ShareMyScreen services",
   "main": "index.js",
@@ -12,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/phunx/sharemyscreen-common.git"
+    "url": "git+ssh://git@github.com:sharemyscreen/common.git"
   },
-  "authors": "Justin Ferrieu",
+  "authors": "ShareMyScreen Team",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/phunx/sharemyscreen-common/issues"
+    "url": "https://github.com/sharemyscreen/common/issues"
   },
-  "homepage": "https://github.com/phunx/sharemyscreen-common#readme",
+  "homepage": "https://github.com/sharemyscreen/common#readme",
   "dependencies": {
     "bcrypt": "^0.8.7",
     "mongoose": "^4.5.0",
