@@ -115,6 +115,19 @@ describe('Testing User model', function () {
       });
   });
 
+  it('getByCredential()', function (done) {
+    smsCommon.userModel.getByCredential(pUser.email,
+      'toto',
+      function (err, fUser) {
+        if (err) {
+          done(err);
+        } else {
+          expect(fUser).to.be.false;
+          done();
+        }
+      });
+  });
+
   it('getByFacebookId()', function (done) {
     smsCommon.userModel.getByFacebookId(faUser.facebookId, function (err, fUser) {
       if (err) {
@@ -159,6 +172,22 @@ describe('Testing User model', function () {
         done();
       }
     });
+  });
+
+  it('safePrint()', function () {
+    const result = pUser.safePrint();
+    expect(result).to.not.be.undefined;
+    expect(result._id).to.be.undefined;
+    expect(result.publicId).to.equal(pUser.publicId);
+    expect(result.email).to.equal(pUser.email);
+    expect(result.password).to.be.undefined;
+    expect(result.firstName).to.equal(pUser.firstName);
+    expect(result.lastName).to.equal(pUser.lastName);
+    expect(result.googleId).to.be.undefined;
+    expect(result.facebookId).to.be.undefined;
+    expect(result.organizations).to.be.an('array');
+    expect(result.createdAt).to.eql(pUser.createdAt);
+    expect(result.updatedAt).to.be.undefined;
   });
 
   it('get fullname', function (done) {
