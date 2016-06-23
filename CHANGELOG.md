@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.4.1
+
+* Implementation and test of the room model
+
+*ferrie_j, Thu Jun 23 2016 17:40:52 GMT+0200 (CEST)*
+
+---
 ## 0.4.0
 
 * Add safePrint() function to client document to convert it as a js object and unset secret properties
