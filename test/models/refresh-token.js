@@ -53,7 +53,7 @@ describe('Testing refresh_token model', function () {
         done(err);
       } else {
         expect(fToken).to.not.be.null;
-        expect(fToken._id.toString()).to.equal(token._id.toString());
+        expect(fToken._id).to.eql(token._id);
         done();
       }
     });

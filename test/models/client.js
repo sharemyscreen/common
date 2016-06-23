@@ -38,7 +38,7 @@ describe('Testing Client model', function () {
         done(err);
       } else {
         expect(fClient).to.not.be.null;
-        expect(fClient._id.toString()).to.equal(client._id.toString());
+        expect(fClient._id).to.eql(client._id);
         done();
       }
     });
@@ -50,7 +50,7 @@ describe('Testing Client model', function () {
         done(err);
       } else {
         expect(fClient).to.not.be.null;
-        expect(fClient._id.toString()).to.equal(client._id.toString());
+        expect(fClient._id).to.eql(client._id);
         done();
       }
     });
@@ -62,7 +62,7 @@ describe('Testing Client model', function () {
         done(err);
       } else {
         expect(fClient).to.not.be.null;
-        expect(fClient._id.toString()).to.equal(client._id.toString());
+        expect(fClient._id).to.eql(client._id);
         done();
       }
     });

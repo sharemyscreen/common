@@ -95,7 +95,7 @@ describe('Testing User model', function () {
         done(err);
       } else {
         expect(fUser).to.not.be.null;
-        expect(fUser._id.toString()).to.equal(pUser._id.toString());
+        expect(fUser._id).to.eql(pUser._id);
         done();
       }
     });
@@ -109,7 +109,7 @@ describe('Testing User model', function () {
           done(err);
         } else {
           expect(fUser).to.not.be.null;
-          expect(fUser._id.toString()).to.equal(pUser._id.toString());
+          expect(fUser._id).to.eql(pUser._id);
           done();
         }
       });
@@ -121,7 +121,7 @@ describe('Testing User model', function () {
         done(err);
       } else {
         expect(fUser).to.not.be.null;
-        expect(fUser._id.toString()).to.equal(faUser._id.toString());
+        expect(fUser._id).to.eql(faUser._id);
         done();
       }
     });
@@ -133,7 +133,7 @@ describe('Testing User model', function () {
         done(err);
       } else {
         expect(fUser).to.not.be.null;
-        expect(fUser._id.toString()).to.equal(gUser._id.toString());
+        expect(fUser._id).to.eql(gUser._id);
         done();
       }
     });

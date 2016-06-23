@@ -70,7 +70,7 @@ describe('Testing Organization model', function () {
         done(err);
       } else {
         expect(fOrg).to.not.be.null;
-        expect(fOrg._id.toString()).to.equal(org._id.toString());
+        expect(fOrg._id).to.eql(org._id);
         done();
       }
     });
