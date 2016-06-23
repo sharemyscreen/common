@@ -1,0 +1,23 @@
+{
+  "user": {
+		"email": "test@organization.com",
+		"password": "Hello",
+		"firstName": "Maxime",
+		"lastName": "Guedj"
+  },
+  "user2": {
+    "email": "test2@organization.com",
+    "password": "Hello",
+    "firstName": "Justin",
+    "lastName": "Ferrieu"
+  },
+  "user3": {
+    "email": "test3@organization.com",
+    "password": "Hello",
+    "firstName": "Guillaume",
+    "lastName": "Galas"
+  },
+  "room": {
+		"name": "Test Room"
+  }
+}
