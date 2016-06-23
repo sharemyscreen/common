@@ -1,3 +1,10 @@
 {
-  "name": "Test client"
+  "client1": {
+    "name": "Test client"
+  },
+  "client2": {
+    "name": "Test client2",
+    "key": "O7oZnkRuTGcBbByh",
+    "secret": "3ZxWjrec0vBz8sE7Mgp9Gooi7rZzAvkz"
+  }
 }

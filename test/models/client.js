@@ -6,11 +6,11 @@ var client;
 
 describe('Testing Client model', function () {
   it('createNew()', function (done) {
-    smsCommon.clientModel.createNew(clientFixture.name, function (err, cClient) {
+    smsCommon.clientModel.createNew(clientFixture.client1.name, function (err, cClient) {
       if (err) {
         done(err);
       }	else {
-        expect(cClient.name).to.equal(clientFixture.name);
+        expect(cClient.name).to.equal(clientFixture.client1.name);
         expect(cClient.key).to.not.be.null;
         expect(cClient.secret).to.not.be.null;
         expect(cClient.trusted).to.be.true;
@@ -20,13 +20,31 @@ describe('Testing Client model', function () {
     });
   });
 
+  it('createFixClient()', function (done) {
+    smsCommon.clientModel.createFix(clientFixture.client2.name,
+      clientFixture.client2.key,
+      clientFixture.client2.secret,
+      function (err, cClient) {
+        if (err) {
+          done(err);
+        }	else {
+          expect(cClient.name).to.equal(clientFixture.client2.name);
+          expect(cClient.key).to.equal(clientFixture.client2.key);
+          expect(cClient.secret).to.equal(clientFixture.client2.secret);
+          expect(cClient.trusted).to.be.true;
+          client = cClient;
+          done();
+        }
+      });
+  });
+
   it('getAll()', function (done) {
     smsCommon.clientModel.getAll(function (err, fClients) {
       if (err) {
         done(err);
       } else {
         expect(fClients).to.be.an('array');
-        expect(fClients).to.have.lengthOf(2);
+        expect(fClients).to.have.lengthOf(3);
         done();
       }
     });
