@@ -33,7 +33,6 @@ describe('Testing refresh_token model', function () {
   it('createNew()', function (done) {
     smsCommon.refreshTokenModel.createNew(client,
       user,
-      refreshTokenFixture.token.scopes,
       function (err, cToken) {
         if (err) {
           done(err);

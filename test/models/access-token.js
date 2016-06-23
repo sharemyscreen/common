@@ -33,7 +33,6 @@ describe('Testing access_token model', function () {
   it('createNew()', function (done) {
     smsCommon.accessTokenModel.createNew(client,
       user,
-      accessTokenFixture.token.scopes,
       function (err, cToken) {
         if (err) {
           done(err);

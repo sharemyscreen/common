@@ -7,8 +7,5 @@
 	"password": "Hello",
 	"firstName": "Maxime",
 	"lastName": "Guedj"
-  },
-  "token": {
-	"scopes": ["read", "write"]
   }
 }
