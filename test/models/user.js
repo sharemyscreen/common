@@ -101,6 +101,18 @@ describe('Testing User model', function () {
     });
   });
 
+  it('getByEmail()', function (done) {
+    smsCommon.userModel.getByEmail(pUser.email, function (err, fUser) {
+      if (err) {
+        done(err);
+      } else {
+        expect(fUser).to.not.be.null;
+        expect(fUser._id).to.eql(pUser._id);
+        done();
+      }
+    });
+  });
+
   it('getByCredential()', function (done) {
     smsCommon.userModel.getByCredential(pUser.email,
       userFixture.password.password,
