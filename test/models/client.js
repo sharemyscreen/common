@@ -13,7 +13,7 @@ describe('Testing Client model', function () {
         expect(cClient.name).to.equal(clientFixture.name);
         expect(cClient.key).to.not.be.null;
         expect(cClient.secret).to.not.be.null;
-        expect(cClient.trusted).to.be.false;
+        expect(cClient.trusted).to.be.true;
         client = cClient;
         done();
       }
@@ -46,6 +46,18 @@ describe('Testing Client model', function () {
 
   it('getByCredential()', function (done) {
     smsCommon.clientModel.getByCredential(client.key, client.secret, function (err, fClient) {
+      if (err) {
+        done(err);
+      } else {
+        expect(fClient).to.not.be.null;
+        expect(fClient._id.toString()).to.equal(client._id.toString());
+        done();
+      }
+    });
+  });
+
+  it('getByName()', function (done) {
+    smsCommon.clientModel.getByName(client.name, function (err, fClient) {
       if (err) {
         done(err);
       } else {
