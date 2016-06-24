@@ -46,8 +46,25 @@ describe('Testing refresh_token model', function () {
       });
   });
 
-  it('getToken()', function (done) {
-    smsCommon.refreshTokenModel.getToken(token.token, function (err, fToken) {
+  it('createFix()', function (done) {
+    smsCommon.refreshTokenModel.createFix(client,
+      user,
+      refreshTokenFixture.token,
+      function (err, cToken) {
+        if (err) {
+          done(err);
+        } else {
+          expect(cToken.token).to.equal(refreshTokenFixture.token);
+          expect(cToken.user._id).to.eql(user._id);
+          expect(cToken.client._id).to.eql(client._id);
+          token = cToken;
+          done();
+        }
+      });
+  });
+
+  it('getByToken()', function (done) {
+    smsCommon.refreshTokenModel.getByToken(token.token, function (err, fToken) {
       if (err) {
         done(err);
       } else {
@@ -57,6 +74,19 @@ describe('Testing refresh_token model', function () {
       }
     });
   });
+
+  it('getByClientToken()', function (done) {
+    smsCommon.refreshTokenModel.getByClientToken(client, token.token, function (err, fToken) {
+      if (err) {
+        done(err);
+      } else {
+        expect(fToken).to.not.be.null;
+        expect(fToken._id).to.eql(token._id);
+        done();
+      }
+    });
+  });
+
 
   it('get duration', function (done) {
     expect(token.duration).to.equal(24 * 3600);

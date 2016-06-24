@@ -46,8 +46,37 @@ describe('Testing access_token model', function () {
       });
   });
 
-  it('getToken()', function (done) {
-    smsCommon.accessTokenModel.getToken(token.token, function (err, fToken) {
+  it('createFix()', function (done) {
+    smsCommon.accessTokenModel.createFix(client,
+      user,
+      accessTokenFixture.token,
+      function (err, cToken) {
+        if (err) {
+          done(err);
+        } else {
+          expect(cToken.token).to.equal(accessTokenFixture.token);
+          expect(cToken.user._id).to.eql(user._id);
+          expect(cToken.client._id).to.eql(client._id);
+          token = cToken;
+          done();
+        }
+      });
+  });
+
+  it('getByToken()', function (done) {
+    smsCommon.accessTokenModel.getByToken(token.token, function (err, fToken) {
+      if (err) {
+        done(err);
+      } else {
+        expect(fToken).to.not.be.null;
+        expect(fToken._id).to.eql(token._id);
+        done();
+      }
+    });
+  });
+
+  it('getByClientToken()', function (done) {
+    smsCommon.accessTokenModel.getByClientToken(client, token.token, function (err, fToken) {
       if (err) {
         done(err);
       } else {

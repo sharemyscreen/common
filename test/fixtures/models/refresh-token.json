@@ -7,5 +7,6 @@
 	"password": "Hello",
 	"firstName": "Maxime",
 	"lastName": "Guedj"
-  }
+  },
+  "token": "ThisIsARefreshToken"
 }
