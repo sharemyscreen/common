@@ -40,6 +40,7 @@ describe('Testing refresh_token model', function () {
           expect(cToken.token.length).to.equal(256);
           expect(cToken.user._id).to.equal(user._id);
           expect(cToken.client._id).to.equal(client._id);
+          expect(cToken.revoked).to.be.false;
           token = cToken;
           done();
         }
@@ -57,7 +58,7 @@ describe('Testing refresh_token model', function () {
           expect(cToken.token).to.equal(refreshTokenFixture.token);
           expect(cToken.user._id).to.eql(user._id);
           expect(cToken.client._id).to.eql(client._id);
-          token = cToken;
+          expect(cToken.revoked).to.be.false;
           done();
         }
       });
@@ -87,7 +88,17 @@ describe('Testing refresh_token model', function () {
     });
   });
 
-
+  it('revoke()', function (done) {
+    token.revoke(function (err) {
+      if (err) {
+        done(err);
+      } else {
+        expect(token.revoked).to.be.true;
+        done();
+      }
+    });
+  });
+  
   it('get duration', function (done) {
     expect(token.duration).to.equal(24 * 3600);
     done();
