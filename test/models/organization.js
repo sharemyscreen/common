@@ -46,8 +46,15 @@ describe('Testing Organization model', function () {
           expect(cOrg.creator._id).to.equal(user._id);
           expect(cOrg.owner._id).to.equal(user._id);
           expect(cOrg.members.length).to.equal(1);
-          org = cOrg;
-          done();
+          smsCommon.userModel.getByPublicId(user.publicId, function (err, fUser) {
+            if (err) {
+              done(err);
+            } else {
+              expect(fUser.organizations).to.have.lengthOf(1);
+              org = cOrg;
+              done();
+            }
+          });
         }
       });
   });
