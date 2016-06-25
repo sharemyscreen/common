@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.0
+
+* First major version
+
+*guedj_m, Sat Jun 25 2016 15:58:19 GMT+0200 (CEST)*
+
+---
 ## 0.4.1
 
 * Implementation and test of the room model
