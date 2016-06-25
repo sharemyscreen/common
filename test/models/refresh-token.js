@@ -98,7 +98,7 @@ describe('Testing refresh_token model', function () {
       }
     });
   });
-  
+
   it('get duration', function (done) {
     expect(token.duration).to.equal(24 * 3600);
     done();

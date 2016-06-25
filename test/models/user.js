@@ -113,6 +113,17 @@ describe('Testing User model', function () {
     });
   });
 
+  it('getByPartialEmail()', function (done) {
+    smsCommon.userModel.getByPartialEmail('ma', 10, function (err, fUsers) {
+      if (err) {
+        done(err);
+      } else {
+        expect(fUsers).to.have.lengthOf(2);
+        done();
+      }
+    });
+  });
+
   it('getByCredential()', function (done) {
     smsCommon.userModel.getByCredential(pUser.email,
       userFixture.password.password,

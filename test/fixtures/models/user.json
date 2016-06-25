@@ -1,12 +1,12 @@
 {
   "password": {
-	"email": "test@password.com",
+	"email": "ma@password.com",
 	"password": "Hello",
 	"firstName": "Maxime",
 	"lastName": "Guedj"
   },
   "google": {
-	"email": "test@google.com",
+	"email": "max@google.com",
 	"googleId": "0123456789",
 	"firstName": "Maxime",
 	"lastName": "Guedj"
