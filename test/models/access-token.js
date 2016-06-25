@@ -89,6 +89,23 @@ describe('Testing access_token model', function () {
     });
   });
 
+  it('deleteTokenForUser()', function (done) {
+    smsCommon.accessTokenModel.deleteTokenForUser(user, function (err) {
+      if (err) {
+        done(err);
+      } else {
+        smsCommon.accessTokenModel.getByToken(token.token, function (err, fToken) {
+          if (err) {
+            done(err);
+          } else {
+            expect(fToken).to.be.null;
+            done();
+          }
+        });
+      }
+    });
+  });
+
   it('get duration', function (done) {
     expect(token.duration).to.equal(3600);
     done();

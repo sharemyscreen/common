@@ -88,6 +88,23 @@ describe('Testing refresh_token model', function () {
     });
   });
 
+  it('deleteTokenForUser()', function (done) {
+    smsCommon.refreshTokenModel.deleteTokenForUser(user, function (err) {
+      if (err) {
+        done(err);
+      } else {
+        smsCommon.refreshTokenModel.getByToken(token.token, function (err, fToken) {
+          if (err) {
+            done(err);
+          } else {
+            expect(fToken).to.be.null;
+            done();
+          }
+        });
+      }
+    });
+  });
+
   it('revoke()', function (done) {
     token.revoke(function (err) {
       if (err) {
