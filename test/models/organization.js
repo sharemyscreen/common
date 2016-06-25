@@ -64,6 +64,20 @@ describe('Testing Organization model', function () {
     });
   });
 
+  it('getByIdDepth()', function (done) {
+    smsCommon.organizationModel.getByIdDepth(org._id, function (err, fOrg) {
+      if (err) {
+        done(err);
+      } else {
+        expect(fOrg).to.not.be.null;
+        expect(fOrg._id).to.eql(org._id);
+        expect(fOrg.members).to.have.lengthOf(1);
+        expect(fOrg.members[0].firstName).to.equal(user.firstName);
+        done();
+      }
+    });
+  });
+
   it('getByPublicId()', function (done) {
     smsCommon.organizationModel.getByPublicId(org.publicId, function (err, fOrg) {
       if (err) {
@@ -71,6 +85,8 @@ describe('Testing Organization model', function () {
       } else {
         expect(fOrg).to.not.be.null;
         expect(fOrg._id).to.eql(org._id);
+        expect(fOrg.members).to.have.lengthOf(1);
+        expect(fOrg.members[0].firstName).to.equal(user.firstName);
         done();
       }
     });
