@@ -100,7 +100,7 @@ describe('Testing Organization model', function () {
   });
 
   it('safePrint()', function () {
-    const result = org.safePrint();
+    const result = org.safePrint(true);
     expect(result.publicId.length).to.equal(25);
     expect(result.name).to.equal(organizationFixture.organization.name);
     expect(result.members.length).to.equal(1);
@@ -109,6 +109,15 @@ describe('Testing Organization model', function () {
     result.members.forEach(function (member) {
       expect(member._id).to.be.undefined;
     });
+  });
+
+  it('safePrint()', function () {
+    const result = org.safePrint(false);
+    expect(result.publicId.length).to.equal(25);
+    expect(result.name).to.equal(organizationFixture.organization.name);
+    expect(result.members).to.be.undefined;
+    expect(result.owner._id).to.be.undefined;
+    expect(result.creator._id).to.be.undefined;
   });
 
   it('inviteUser()', function (done) {
