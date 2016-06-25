@@ -70,6 +70,8 @@ describe('Testing access_token model', function () {
       } else {
         expect(fToken).to.not.be.null;
         expect(fToken._id).to.eql(token._id);
+        expect(fToken.user.publicId).to.equal(user.publicId);
+        expect(fToken.client.name).to.equal(client.name);
         done();
       }
     });
