@@ -141,4 +141,22 @@ describe('Testing Organization model', function () {
       }
     });
   });
+
+  it('destroy()', function (done) {
+    org.destroy(function (err) {
+      if (err) {
+        done(err);
+      } else {
+        smsCommon.userModel.getByPublicId(user.publicId, function (err, fUser) {
+          if (err) {
+            done(err);
+          } else {
+            expect(fUser.organizations).to.have.lengthOf(0);
+            done();
+          }
+        });
+      }
+    });
+  });
+
 });
