@@ -92,6 +92,18 @@ describe('Testing Organization model', function () {
     });
   });
 
+  it('safePrint()', function () {
+    const result = org.safePrint();
+    expect(result.publicId.length).to.equal(25);
+    expect(result.name).to.equal(organizationFixture.organization.name);
+    expect(result.members.length).to.equal(1);
+    expect(result.owner._id).to.be.undefined;
+    expect(result.creator._id).to.be.undefined;
+    result.members.forEach(function (member) {
+      expect(member._id).to.be.undefined;
+    });
+  });
+
   it('inviteUser()', function (done) {
     org.inviteUser(user2, function (err) {
       if (err) {
