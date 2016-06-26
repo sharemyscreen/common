@@ -89,18 +89,6 @@ describe('Testing User model', function () {
       });
   });
 
-  it('getByPublicId()', function (done) {
-    smsCommon.userModel.getByPublicId(pUser.publicId, function (err, fUser) {
-      if (err) {
-        done(err);
-      } else {
-        expect(fUser).to.not.be.null;
-        expect(fUser._id).to.eql(pUser._id);
-        done();
-      }
-    });
-  });
-
   it('getByEmail()', function (done) {
     smsCommon.userModel.getByEmail(pUser.email, function (err, fUser) {
       if (err) {
@@ -181,6 +169,35 @@ describe('Testing User model', function () {
         done(err);
       } else {
         expect(pUser.organizations).to.have.lengthOf(1);
+        done();
+      }
+    });
+  });
+
+  it('getByPublicId()', function (done) {
+    smsCommon.userModel.getByPublicId(pUser.publicId, false, function (err, fUser) {
+      if (err) {
+        done(err);
+      } else {
+        expect(fUser).to.not.be.null;
+        expect(fUser._id).to.eql(pUser._id);
+        expect(fUser.organizations[0].name).to.be.undefined;
+        done();
+      }
+    });
+  });
+
+  it('getByPublicId()', function (done) {
+    smsCommon.userModel.getByPublicId(pUser.publicId, true, function (err, fUser) {
+      if (err) {
+        done(err);
+      } else {
+        expect(fUser).to.not.be.null;
+        expect(fUser._id).to.eql(pUser._id);
+        expect(fUser.organizations[0].name).to.equal(org.name);
+        expect(fUser.organizations[0].members).to.have.lengthOf(1);
+        expect(fUser.organizations[0].members[0].publicId).to.equal(tUser.publicId);
+        pUser = fUser;
         done();
       }
     });

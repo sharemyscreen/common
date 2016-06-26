@@ -46,7 +46,7 @@ describe('Testing Organization model', function () {
           expect(cOrg.creator._id).to.equal(user._id);
           expect(cOrg.owner._id).to.equal(user._id);
           expect(cOrg.members.length).to.equal(1);
-          smsCommon.userModel.getByPublicId(user.publicId, function (err, fUser) {
+          smsCommon.userModel.getByPublicId(user.publicId, false, function (err, fUser) {
             if (err) {
               done(err);
             } else {
@@ -148,7 +148,7 @@ describe('Testing Organization model', function () {
       if (err) {
         done(err);
       } else {
-        smsCommon.userModel.getByPublicId(user.publicId, function (err, fUser) {
+        smsCommon.userModel.getByPublicId(user.publicId, false, function (err, fUser) {
           if (err) {
             done(err);
           } else {
