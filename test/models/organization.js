@@ -159,5 +159,4 @@ describe('Testing Organization model', function () {
       }
     });
   });
-
 });
