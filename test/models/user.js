@@ -186,17 +186,6 @@ describe('Testing User model', function () {
     });
   });
 
-  it('leaveOrganization()', function (done) {
-    pUser.leaveOrganization(org, function (err) {
-      if (err) {
-        done(err);
-      } else {
-        expect(pUser.organizations).to.have.lengthOf(0);
-        done();
-      }
-    });
-  });
-
   it('safePrint()', function () {
     const result = pUser.safePrint();
     expect(result).to.not.be.undefined;
@@ -211,6 +200,33 @@ describe('Testing User model', function () {
     expect(result.organizations).to.be.an('array');
     expect(result.createdAt).to.eql(pUser.createdAt);
     expect(result.updatedAt).to.be.undefined;
+  });
+
+  it('safePrintMember()', function () {
+    const result = pUser.safePrintMember();
+    expect(result).to.not.be.undefined;
+    expect(result._id).to.be.undefined;
+    expect(result.publicId).to.equal(pUser.publicId);
+    expect(result.email).to.equal(pUser.email);
+    expect(result.password).to.be.undefined;
+    expect(result.firstName).to.equal(pUser.firstName);
+    expect(result.lastName).to.equal(pUser.lastName);
+    expect(result.googleId).to.be.undefined;
+    expect(result.facebookId).to.be.undefined;
+    expect(result.organizations).to.be.undefined;
+    expect(result.createdAt).to.eql(pUser.createdAt);
+    expect(result.updatedAt).to.be.undefined;
+  });
+
+  it('leaveOrganization()', function (done) {
+    pUser.leaveOrganization(org, function (err) {
+      if (err) {
+        done(err);
+      } else {
+        expect(pUser.organizations).to.have.lengthOf(0);
+        done();
+      }
+    });
   });
 
   it('get fullname', function (done) {

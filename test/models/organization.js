@@ -108,6 +108,7 @@ describe('Testing Organization model', function () {
     expect(result.creator._id).to.be.undefined;
     result.members.forEach(function (member) {
       expect(member._id).to.be.undefined;
+      expect(member.organizations).to.be.undefined;
     });
   });
 
