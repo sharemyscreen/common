@@ -127,6 +127,7 @@ describe('Testing Organization model', function () {
         done(err);
       } else {
         expect(org.members).to.have.lengthOf(2);
+        expect(user2.organizations).to.have.lengthOf(1);
         done();
       }
     });
@@ -138,6 +139,7 @@ describe('Testing Organization model', function () {
         done(err);
       } else {
         expect(org.members).to.have.lengthOf(1);
+        expect(user2.organizations).to.have.lengthOf(0);
         done();
       }
     });
