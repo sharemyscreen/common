@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.1
+
+* Fix user.getByCredential()
+
+*guedj_m, Mon Jun 27 2016 10:13:45 GMT-0700 (PDT)*
+
+---
 ## 1.0.0
 
 * First major version
