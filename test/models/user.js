@@ -175,29 +175,49 @@ describe('Testing User model', function () {
   });
 
   it('getByPublicId()', function (done) {
-    smsCommon.userModel.getByPublicId(pUser.publicId, false, function (err, fUser) {
+    smsCommon.userModel.getByPublicId(pUser.publicId, function (err, fUser) {
       if (err) {
         done(err);
       } else {
         expect(fUser).to.not.be.null;
         expect(fUser._id).to.eql(pUser._id);
-        expect(fUser.organizations[0].name).to.be.undefined;
+        expect(fUser.organizations).to.have.lengthOf(1);
         done();
       }
     });
   });
 
-  it('getByPublicId()', function (done) {
-    smsCommon.userModel.getByPublicId(pUser.publicId, true, function (err, fUser) {
+  it('getByPublicIdOrga()', function (done) {
+    smsCommon.userModel.getByPublicIdOrga(pUser.publicId, function (err, fUser) {
       if (err) {
         done(err);
       } else {
         expect(fUser).to.not.be.null;
         expect(fUser._id).to.eql(pUser._id);
-        expect(fUser.organizations[0].name).to.equal(org.name);
+        expect(fUser.organizations).to.have.lengthOf(1);
+        expect(fUser.organizations[0].name).to.equal(userFixture.org.name);
         expect(fUser.organizations[0].members).to.have.lengthOf(1);
         expect(fUser.organizations[0].members[0].publicId).to.equal(tUser.publicId);
-        pUser = fUser;
+        done();
+      }
+    });
+  });
+
+  it('getByPublicIdFull()', function (done) {
+    smsCommon.userModel.getByPublicIdFull(pUser.publicId, function (err, fUser) {
+      if (err) {
+        done(err);
+      } else {
+        expect(fUser).to.not.be.null;
+        expect(fUser._id).to.eql(pUser._id);
+        expect(fUser.organizations).to.have.lengthOf(1);
+        expect(fUser.organizations[0].name).to.equal(userFixture.org.name);
+        expect(fUser.organizations[0].members).to.have.lengthOf(1);
+        expect(fUser.organizations[0].members[0].publicId).to.equal(tUser.publicId);
+        expect(fUser.organizations[0].rooms).to.have.lengthOf(1);
+        expect(fUser.organizations[0].rooms[0].name).to.equal('General');
+        expect(fUser.organizations[0].rooms[0].members).to.have.lengthOf(1);
+        expect(fUser.organizations[0].rooms[0].members[0].publicId).to.equal(tUser.publicId);
         done();
       }
     });
@@ -214,9 +234,62 @@ describe('Testing User model', function () {
     expect(result.lastName).to.equal(pUser.lastName);
     expect(result.googleId).to.be.undefined;
     expect(result.facebookId).to.be.undefined;
-    expect(result.organizations).to.be.an('array');
-    expect(result.createdAt).to.eql(pUser.createdAt);
-    expect(result.updatedAt).to.be.undefined;
+    expect(result.organizations).to.be.undefined;
+  });
+
+  it('safePrint()', function (done) {
+    smsCommon.userModel.getByPublicIdOrga(pUser.publicId, function (err, fUser) {
+      if (err) {
+        done(err);
+      } else {
+        const result = fUser.safePrint();
+        expect(result).to.not.be.undefined;
+        expect(result._id).to.be.undefined;
+        expect(result.publicId).to.equal(pUser.publicId);
+        expect(result.email).to.equal(pUser.email);
+        expect(result.password).to.be.undefined;
+        expect(result.firstName).to.equal(pUser.firstName);
+        expect(result.lastName).to.equal(pUser.lastName);
+        expect(result.googleId).to.be.undefined;
+        expect(result.facebookId).to.be.undefined;
+        expect(result.organizations).to.have.lengthOf(1);
+        expect(result.organizations[0].name).to.equal(userFixture.org.name);
+        expect(result.organizations[0].members).to.have.lengthOf(1);
+        expect(result.organizations[0].members[0].publicId).to.equal(tUser.publicId);
+        expect(result.organizations[0].members[0].organization).to.be.undefined;
+        expect(result.organizations[0].rooms).to.be.undefined;
+        done();
+      }
+    });
+  });
+
+  it('safePrint()', function (done) {
+    smsCommon.userModel.getByPublicIdFull(pUser.publicId, function (err, fUser) {
+      if (err) {
+        done(err);
+      } else {
+        const result = fUser.safePrint();
+        expect(result).to.not.be.undefined;
+        expect(result._id).to.be.undefined;
+        expect(result.publicId).to.equal(pUser.publicId);
+        expect(result.email).to.equal(pUser.email);
+        expect(result.password).to.be.undefined;
+        expect(result.firstName).to.equal(pUser.firstName);
+        expect(result.lastName).to.equal(pUser.lastName);
+        expect(result.googleId).to.be.undefined;
+        expect(result.facebookId).to.be.undefined;
+        expect(result.organizations).to.have.lengthOf(1);
+        expect(result.organizations[0].name).to.equal(userFixture.org.name);
+        expect(result.organizations[0].members).to.have.lengthOf(1);
+        expect(result.organizations[0].members[0].publicId).to.equal(tUser.publicId);
+        expect(result.organizations[0].members[0].organization).to.be.undefined;
+        expect(result.organizations[0].rooms).to.have.lengthOf(1);
+        expect(result.organizations[0].rooms[0]._id).to.be.undefined;
+        expect(result.organizations[0].rooms[0].members).to.have.lengthOf(1);
+        expect(result.organizations[0].rooms[0].members[0].publicId).to.equal(tUser.publicId);
+        done();
+      }
+    });
   });
 
   it('safePrintMember()', function () {
