@@ -5,6 +5,7 @@ const organizationFixture = require('../fixtures/models/organization.json');
 var user;
 var user2;
 var org;
+var org2;
 
 describe('Testing Organization model', function () {
   before(function (done) {
@@ -59,13 +60,38 @@ describe('Testing Organization model', function () {
       });
   });
 
+  it('createNew()', function (done) {
+    smsCommon.organizationModel.createNew(organizationFixture.organization.name,
+      user,
+      function (err, cOrg) {
+        if (err) {
+          done(err);
+        }	else {
+          expect(cOrg.publicId.length).to.equal(25);
+          expect(cOrg.name).to.equal(organizationFixture.organization.name);
+          expect(cOrg.creator._id).to.equal(user._id);
+          expect(cOrg.owner._id).to.equal(user._id);
+          expect(cOrg.members.length).to.equal(1);
+          smsCommon.userModel.getByPublicId(user.publicId, false, function (err, fUser) {
+            if (err) {
+              done(err);
+            } else {
+              expect(fUser.organizations).to.have.lengthOf(2);
+              org2 = cOrg;
+              done();
+            }
+          });
+        }
+      });
+  });
+
   it('getAll()', function (done) {
     smsCommon.organizationModel.getAll(function (err, fOrgs) {
       if (err) {
         done(err);
       } else {
         expect(fOrgs).to.be.an('array');
-        expect(fOrgs).to.have.lengthOf(1);
+        expect(fOrgs).to.have.lengthOf(2);
         done();
       }
     });
@@ -150,11 +176,12 @@ describe('Testing Organization model', function () {
       if (err) {
         done(err);
       } else {
-        smsCommon.userModel.getByPublicId(user.publicId, false, function (err, fUser) {
+        smsCommon.userModel.getByPublicId(user.publicId, true, function (err, fUser) {
           if (err) {
             done(err);
           } else {
-            expect(fUser.organizations).to.have.lengthOf(0);
+            expect(fUser.organizations).to.have.lengthOf(1);
+            expect(fUser.organizations[0].publicId).to.equal(org2.publicId);
             done();
           }
         });
