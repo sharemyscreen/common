@@ -73,7 +73,7 @@ describe('Testing Room model', () => {
         return done(err);
       }
       expect(fRooms).to.be.an('array');
-      expect(fRooms).to.have.lengthOf(1);
+      expect(fRooms).to.have.lengthOf(3);
       done();
     });
   });

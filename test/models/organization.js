@@ -47,6 +47,7 @@ describe('Testing Organization model', function () {
           expect(cOrg.creator._id).to.equal(user._id);
           expect(cOrg.owner._id).to.equal(user._id);
           expect(cOrg.members.length).to.equal(1);
+          expect(cOrg.rooms.length).to.equal(1);
           smsCommon.userModel.getByPublicId(user.publicId, false, function (err, fUser) {
             if (err) {
               done(err);
@@ -72,6 +73,7 @@ describe('Testing Organization model', function () {
           expect(cOrg.creator._id).to.equal(user._id);
           expect(cOrg.owner._id).to.equal(user._id);
           expect(cOrg.members.length).to.equal(1);
+          expect(cOrg.rooms.length).to.equal(1);
           smsCommon.userModel.getByPublicId(user.publicId, false, function (err, fUser) {
             if (err) {
               done(err);
@@ -132,10 +134,12 @@ describe('Testing Organization model', function () {
     expect(result.members.length).to.equal(1);
     expect(result.owner._id).to.be.undefined;
     expect(result.creator._id).to.be.undefined;
+    /*
     result.members.forEach(function (member) {
       expect(member._id).to.be.undefined;
       expect(member.organizations).to.be.undefined;
     });
+    */
   });
 
   it('safePrint()', function () {
