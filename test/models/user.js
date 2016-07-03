@@ -197,6 +197,10 @@ describe('Testing User model', function () {
         expect(fUser.organizations[0].name).to.equal(org.name);
         expect(fUser.organizations[0].members).to.have.lengthOf(1);
         expect(fUser.organizations[0].members[0].publicId).to.equal(tUser.publicId);
+        expect(fUser.organizations[0].rooms).to.have.lengthOf(1);
+        expect(fUser.organizations[0].rooms[0].name).to.equal('general');
+        expect(fUser.organizations[0].rooms[0].members).to.have.lengthOf(1);
+        expect(fUser.organizations[0].rooms[0].members[0].publicId).to.equal(tUser.publicId);
         pUser = fUser;
         done();
       }

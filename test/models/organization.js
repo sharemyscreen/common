@@ -108,6 +108,10 @@ describe('Testing Organization model', function () {
         expect(fOrg._id).to.eql(org._id);
         expect(fOrg.members).to.have.lengthOf(1);
         expect(fOrg.members[0].firstName).to.equal(user.firstName);
+        expect(fOrg.rooms).to.have.lengthOf(1);
+        expect(fOrg.rooms[0].name).to.equal('general');
+        expect(fOrg.rooms[0].members).to.have.lengthOf(1);
+        expect(fOrg.rooms[0].members[0].publicId).to.equal(user.publicId);
         done();
       }
     });
@@ -122,6 +126,10 @@ describe('Testing Organization model', function () {
         expect(fOrg._id).to.eql(org._id);
         expect(fOrg.members).to.have.lengthOf(1);
         expect(fOrg.members[0].firstName).to.equal(user.firstName);
+        expect(fOrg.rooms).to.have.lengthOf(1);
+        expect(fOrg.rooms[0].name).to.equal('general');
+        expect(fOrg.rooms[0].members).to.have.lengthOf(1);
+        expect(fOrg.rooms[0].members[0].publicId).to.equal(user.publicId);
         done();
       }
     });
