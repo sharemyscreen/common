@@ -1,3 +1,6 @@
+const mongoose = require('mongoose');
+
+mongoose.Promise = require('bluebird');
 const lib = {
   utils: require('./lib/utils'),
   accessTokenModel: require('./lib/models/access-token'),
