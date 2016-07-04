@@ -166,6 +166,7 @@ describe('Testing Organization model', function () {
       } else {
         expect(org.members).to.have.lengthOf(2);
         expect(user2.organizations).to.have.lengthOf(1);
+        expect(org.rooms[0].members).to.have.lengthOf(2);
         done();
       }
     });
